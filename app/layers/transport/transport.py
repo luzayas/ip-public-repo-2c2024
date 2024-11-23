@@ -30,3 +30,8 @@ def getAllImages(input=None):
             pass
 
     return json_collection
+
+
+##funciona
+# https://rickandmortyapi.com/api/character/avatar/1.jpeg
+# https://rickandmortyapi.com/api/character/1

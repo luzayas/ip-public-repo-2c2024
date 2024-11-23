@@ -1,16 +1,26 @@
 # capa de servicio/lógica de negocio
 
+from typing import List, Optional
 from ..persistence import repositories
 from ..utilities import translator
 from django.contrib.auth import get_user
+from ..transport import transport
+from ...layers.utilities.card import Card
+import logging
 
-def getAllImages(input=None):
+def getAllImages(input: Optional[List[str]] = None) -> List[Card]:
     # obtiene un listado de datos "crudos" desde la API, usando a transport.py.
-    json_collection = []
+    json_collection = transport.getAllImages(input)
 
     # recorre cada dato crudo de la colección anterior, lo convierte en una Card y lo agrega a images.
     images = []
-
+    for image in json_collection:
+        images.append(translator.fromRequestIntoCard(image))
+    
+    logging.basicConfig(level=logging.INFO)
+    logging.info("This is an info log message")
+    
+    print("images: " + images);
     return images
 
 # añadir favoritos (usado desde el template 'home.html')
